@@ -23,13 +23,15 @@ public class PolicyNumberGenerator : IPolicyNumberGenerator
         _policies = policies;
     }
 
-    public async Task<string> GenerateAsync(string lobCode, int year)
+    public Task<string> GenerateAsync(string lobCode, int year)
     {
         var prefix = $"SG-{lobCode}-{year}-";
-        var existing = await _policies.Query()
+        // Synchronous LINQ-to-objects here (not ToListAsync) so this also works against
+        // plain in-memory IQueryable stubs in unit tests, not just a real EF Core DbSet.
+        var existing = _policies.Query()
             .Where(p => p.PolicyNumber.StartsWith(prefix))
             .Select(p => p.PolicyNumber)
-            .ToListAsync();
+            .ToList();
 
         var maxSeq = 0;
         foreach (var number in existing)
@@ -39,6 +41,6 @@ public class PolicyNumberGenerator : IPolicyNumberGenerator
         }
 
         var next = maxSeq + 1;
-        return $"{prefix}{next.ToString().PadLeft(6, '0')}";
+        return Task.FromResult($"{prefix}{next.ToString().PadLeft(6, '0')}");
     }
 }
