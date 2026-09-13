@@ -9,11 +9,12 @@ obj/
 logs/
 
 ## Generated documents (runtime output, keep folder via .gitkeep)
-generated-documents/*
-!generated-documents/.gitkeep
-!generated-documents/emails/
-generated-documents/emails/*
-!generated-documents/emails/.gitkeep
+## (unanchored with ** since the folder lives under src/SGInsurance.Api/, not repo root)
+**/generated-documents/*
+!**/generated-documents/.gitkeep
+!**/generated-documents/emails/
+**/generated-documents/emails/*
+!**/generated-documents/emails/.gitkeep
 
 ## Test results
 TestResults/
