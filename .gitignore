@@ -1,0 +1,23 @@
+## .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+## Logs
+logs/
+
+## Generated documents (runtime output, keep folder via .gitkeep)
+generated-documents/*
+!generated-documents/.gitkeep
+!generated-documents/emails/
+generated-documents/emails/*
+!generated-documents/emails/.gitkeep
+
+## Test results
+TestResults/
+
+## Rider/VSCode
+.idea/
+.vscode/
