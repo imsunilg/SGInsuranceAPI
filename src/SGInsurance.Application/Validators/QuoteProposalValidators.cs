@@ -15,7 +15,7 @@ public static class LobProductDataRules
         ["MOTOR"] = new[] { "regNumber", "make", "model", "year", "fuelType" },
         ["HEALTH"] = new[] { "members", "sumInsured" },
         ["TRAVEL"] = new[] { "destinations", "tripStartDate", "tripEndDate", "numberOfTravellers" },
-        ["HOME"] = new[] { "propertyAddress", "constructionType", "sumInsuredStructure" },
+        ["HOME"] = new[] { "propertyAddress", "constructionType" },
         ["PERSONAL_ACCIDENT"] = new[] { "occupationClass", "sumInsured" },
         ["COMMERCIAL"] = new[] { "businessName", "industryType" },
         ["AGRICULTURE"] = new[] { "cropOrLivestockType", "areaAcresOrHeadCount", "season" },
@@ -35,6 +35,14 @@ public static class LobProductDataRules
         {
             if (!productData.TryGetProperty(key, out _))
                 errors.Add($"productData.{key} is required for LOB '{lobCode}'.");
+        }
+
+        if (lobCode == "HOME")
+        {
+            var hasStructure = productData.TryGetProperty("sumInsuredStructure", out _);
+            var hasContents = productData.TryGetProperty("sumInsuredContents", out _);
+            if (!hasStructure && !hasContents)
+                errors.Add("productData must include sumInsuredStructure and/or sumInsuredContents for LOB 'HOME'.");
         }
 
         if (lobCode == "MOTOR")
