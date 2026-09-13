@@ -7,7 +7,7 @@ namespace SGInsurance.IntegrationTests;
 /// <summary>
 /// Verifies EF Core's model (built from Fluent API configurations, independent
 /// of the SGInsuranceDB SQL scripts) can query the real, already-seeded
-/// "SGInsurance" schema in the local "taskflow" Postgres database. This is the
+/// "SGInsurance" schema in the local "SGInsurance" Postgres database. This is the
 /// Phase 9 reconciliation check: we did NOT run `dotnet ef database update`
 /// (the schema+data already exist), we just proved EF's mapping matches it.
 /// </summary>
@@ -16,7 +16,7 @@ public class EfCoreSchemaTests
     private static SGInsuranceDbContext CreateContext()
     {
         var options = new DbContextOptionsBuilder<SGInsuranceDbContext>()
-            .UseNpgsql("Host=localhost;Port=5432;Database=taskflow;Username=postgres;Password=284228")
+            .UseNpgsql("Host=localhost;Port=5432;Database=SGInsurance;Username=postgres;Password=284228")
             .Options;
         return new SGInsuranceDbContext(options);
     }

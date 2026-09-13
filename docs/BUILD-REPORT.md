@@ -78,7 +78,7 @@ Standard envelope on every response: `{ success, data, message, errors }`.
 PostgreSQL 16 runs as a Windows service (`postgresql-x64-16`) — already running. To verify:
 
 ```
-"C:\Program Files\PostgreSQL\16\bin\psql.exe" -h localhost -U postgres -d taskflow -c "\dt \"SGInsurance\".*"
+"C:\Program Files\PostgreSQL\16\bin\psql.exe" -h localhost -U postgres -d SGInsurance -c "\dt \"SGInsurance\".*"
 ```
 
 To rebuild from scratch: run `SGInsuranceDB/scripts/999_reset_schema.sql` then `001` through `007` in order, via the same `psql.exe`.
@@ -114,7 +114,7 @@ Verified live end-to-end for **three different LOBs** (not just motor): `PRIVATE
 
 ## 10. Test results
 
-- `dotnet test`: **30/30 passing** (25 unit — one per rating strategy plus PolicyNumberGenerator/PaymentService/ProposalService/QuoteService; 5 integration — full flow against the live seeded `taskflow` DB for 3 LOBs).
+- `dotnet test`: **30/30 passing** (25 unit — one per rating strategy plus PolicyNumberGenerator/PaymentService/ProposalService/QuoteService; 5 integration — full flow against the live seeded `SGInsurance` DB for 3 LOBs).
 - `ng test` (Vitest, Angular's default test runner): **1/1 passing**.
 
 ## 11. Build results

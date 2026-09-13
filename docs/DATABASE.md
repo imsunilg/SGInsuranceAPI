@@ -3,7 +3,7 @@
 ## Source of truth
 
 The actual database (schema + seed data) already exists: PostgreSQL 16,
-database `taskflow`, schema `"SGInsurance"` (mixed-case, always quoted),
+database `SGInsurance`, schema `"SGInsurance"` (mixed-case, always quoted),
 created and seeded by the separate `SGInsuranceDB` repository's scripts
 `001_create_schema.sql` through `007_seed_demo_users_and_data.sql`. This API
 repo **never runs those scripts and never modifies that database** - it only
@@ -13,7 +13,7 @@ Connection string (`src/SGInsurance.Api/appsettings.json`,
 `ConnectionStrings:DefaultConnection`):
 
 ```
-Host=localhost;Port=5432;Database=taskflow;Username=postgres;Password=284228
+Host=localhost;Port=5432;Database=SGInsurance;Username=postgres;Password=284228
 ```
 
 ## Intentional duplication: SQL scripts vs EF Core model
@@ -41,7 +41,7 @@ We took the approach the brief calls out as simplest:
    purely as **documentation/tooling proof** that the EF Core model is
    internally consistent and could stand up a fresh database from scratch.
 2. We **did not** run `dotnet ef database update` and did not insert a row
-   into `__EFMigrationsHistory` - the real `taskflow` database already has
+   into `__EFMigrationsHistory` - the real SGInsurance database already has
    the schema and 8+ LOBs / 25 products / demo users / 8 seeded policies, so
    applying (or "faking apply" of) the migration is unnecessary and risks
    confusion about which system owns the schema.
@@ -57,7 +57,7 @@ We took the approach the brief calls out as simplest:
 If this project were ever deployed against a brand-new empty database, the
 generated `InitialCreate` migration is ready to run standard EF workflow
 (`dotnet ef database update`) - it just wasn't needed here because
-`SGInsuranceDB`'s scripts already did that job for the shared `taskflow`
+`SGInsuranceDB`'s scripts already did that job for the shared `SGInsurance`
 database.
 
 ## Key JSON column shapes

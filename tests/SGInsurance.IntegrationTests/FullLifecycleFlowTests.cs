@@ -11,7 +11,7 @@ namespace SGInsurance.IntegrationTests;
 /// End-to-end proof that the same generalized pipeline (register -> login ->
 /// quote -> proposal -> KYC -> risk verification -> payment -> policy issuance)
 /// works across different LOBs/products, not just MOTOR. Runs against the real
-/// local Postgres "taskflow" database; each run registers a brand-new customer
+/// local Postgres "SGInsurance" database; each run registers a brand-new customer
 /// (unique email/mobile) so it's safe to run repeatedly without cleanup.
 /// </summary>
 public class FullLifecycleFlowTests : IClassFixture<CustomWebApplicationFactory>
@@ -183,7 +183,7 @@ public class FullLifecycleFlowTests : IClassFixture<CustomWebApplicationFactory>
     private static async Task<Guid> GetCustomerIdByEmailAsync(string email)
     {
         var options = new DbContextOptionsBuilder<SGInsuranceDbContext>()
-            .UseNpgsql("Host=localhost;Port=5432;Database=taskflow;Username=postgres;Password=284228")
+            .UseNpgsql("Host=localhost;Port=5432;Database=SGInsurance;Username=postgres;Password=284228")
             .Options;
         await using var ctx = new SGInsuranceDbContext(options);
         var customer = await ctx.Customers.FirstAsync(c => c.Email == email);
